@@ -26,3 +26,4 @@ wwwroot/lib/
 
 *.db-wal
 *.db-shm
+*.db
