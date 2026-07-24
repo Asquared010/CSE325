@@ -1,0 +1,190 @@
+div {
+    position: relative;
+}
+
+nav {
+    top: 4em;
+    width: 30em;
+    display: inline-flex;
+    flex-direction: row;
+    margin-left: 10px;
+}
+
+nav span {
+    width: 4em;
+    text-align: center;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+div.board {
+    margin-top: 1em;
+    width: 30em;
+    height: 24em;
+    overflow: hidden;
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    row-gap: 0;
+    border-left: 10px solid var(--board-bg);
+}
+
+span.container {
+    width: 4em;
+    height: 4em;
+    margin: 0;
+    padding: 4px;
+    overflow: hidden;
+    background-color: transparent;
+    position: relative;
+}
+
+.container span {
+    width: 3.5em;
+    height: 3.5em;
+    border-radius: 50%;
+    box-shadow: 0 0 0 3em var(--board-bg);
+    left: 0;
+    position: absolute;
+    display: block;
+}
+
+.player1,
+.player2 {
+    width: 3.5em;
+    height: 3.5em;
+    border-radius: 50%;
+    left: 0;
+    top: 0;
+    position: absolute;
+    display: block;
+}
+
+.player1 {
+    background-color: var(--player1);
+    box-shadow: 0 0 0 4px var(--player1);
+}
+
+.player2 {
+    background-color: var(--player2);
+    box-shadow: 0 0 0 4px var(--player2);
+}
+
+
+/* Column positions */
+
+.col0 {
+    left: calc(0em + 9px);
+}
+
+.col1 {
+    left: calc(4em + 9px);
+}
+
+.col2 {
+    left: calc(8em + 9px);
+}
+
+.col3 {
+    left: calc(12em + 9px);
+}
+
+.col4 {
+    left: calc(16em + 9px);
+}
+
+.col5 {
+    left: calc(20em + 9px);
+}
+
+.col6 {
+    left: calc(24em + 9px);
+}
+
+
+/* Drop animations */
+
+.drop1 {
+    animation: drop1 1s forwards;
+}
+
+.drop2 {
+    animation: drop2 1.5s forwards;
+}
+
+.drop3 {
+    animation: drop3 1.6s forwards;
+}
+
+.drop4 {
+    animation: drop4 1.7s forwards;
+}
+
+.drop5 {
+    animation: drop5 1.8s forwards;
+}
+
+.drop6 {
+    animation: drop6 1.9s forwards;
+}
+
+
+@keyframes drop1 {
+    from {
+        transform: translateY(-5em);
+    }
+
+    to {
+        transform: translateY(1.27em);
+    }
+}
+
+@keyframes drop2 {
+    from {
+        transform: translateY(-5em);
+    }
+
+    to {
+        transform: translateY(5.27em);
+    }
+}
+
+@keyframes drop3 {
+    from {
+        transform: translateY(-5em);
+    }
+
+    to {
+        transform: translateY(9.27em);
+    }
+}
+
+@keyframes drop4 {
+    from {
+        transform: translateY(-5em);
+    }
+
+    to {
+        transform: translateY(13.27em);
+    }
+}
+
+@keyframes drop5 {
+    from {
+        transform: translateY(-5em);
+    }
+
+    to {
+        transform: translateY(17.27em);
+    }
+}
+
+@keyframes drop6 {
+    from {
+        transform: translateY(-5em);
+    }
+
+    to {
+        transform: translateY(21.27em);
+    }
+}

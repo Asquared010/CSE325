@@ -1,0 +1,192 @@
+<h1>Connect Four</h1>
+<p>Get four pieces in a row to win!</p>
+@inject GameState State
+
+<HeadContent>
+    <style>
+        :root {
+            --board-bg: yellow;
+            --player1: red;
+            --player2: blue;
+        }
+    </style>
+</HeadContent>
+
+
+<nav>
+    @for (byte i = 0; i < 7; i++)
+    {
+        var col = i;
+
+        <span title="Click to play a piece"
+              @onclick="() => PlayPiece(col)">
+            🔽
+        </span>
+    }
+</nav>
+
+
+<article>
+
+    @if (!string.IsNullOrEmpty(winnerMessage))
+    {
+        <h2>@winnerMessage</h2>
+
+        <button @onclick="ResetGame">
+            Reset Game
+        </button>
+    }
+    else
+    {
+        <p>
+            Player @State.PlayerTurn's Turn
+        </p>
+    }
+
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <p class="alert-danger">
+            @errorMessage
+        </p>
+    }
+
+</article>
+
+
+<div>
+
+    <div class="board">
+
+        @for (int i = 0; i < 42; i++)
+        {
+            <span class="container">
+                <span></span>
+            </span>
+        }
+
+    </div>
+
+
+    @for (int i = 0; i < 42; i++)
+    {
+        <span class="@pieces[i]"></span>
+    }
+
+</div>
+
+
+<h3>Move History</h3>
+
+<ul>
+    @foreach (var move in moveHistory)
+    {
+        <li>
+            @move
+        </li>
+    }
+</ul>
+
+
+
+@code {
+
+    private string[] pieces = new string[42];
+
+
+    private List<string> moveHistory = new();
+
+
+    private string winnerMessage = string.Empty;
+
+
+    private string errorMessage = string.Empty;
+
+
+
+    protected override void OnInitialized()
+    {
+        State.ResetBoard();
+    }
+
+
+
+    private void PlayPiece(byte col)
+    {
+        errorMessage = string.Empty;
+
+
+        if (!string.IsNullOrEmpty(winnerMessage))
+        {
+            return;
+        }
+
+
+        try
+        {
+            var player = State.PlayerTurn;
+
+
+            var turn = State.CurrentTurn;
+
+
+            var landingRow = State.PlayPiece(col);
+
+
+            pieces[turn] =
+                $"player{player} col{col} drop{landingRow}";
+
+
+            moveHistory.Add(
+                $"Player {player} played column {col + 1}"
+            );
+
+
+            winnerMessage = State.CheckForWin() switch
+            {
+                GameState.WinState.Player1_Wins =>
+                    "Player 1 Wins!",
+
+                GameState.WinState.Player2_Wins =>
+                    "Player 2 Wins!",
+
+                GameState.WinState.Tie =>
+                    "It's a Tie!",
+
+                _ => string.Empty
+            };
+
+
+            StateHasChanged();
+        }
+        catch (ArgumentException ex)
+        {
+            errorMessage = ex.Message;
+
+            StateHasChanged();
+        }
+    }
+
+
+
+    private void ResetGame()
+    {
+        State.ResetBoard();
+
+
+        pieces = new string[42];
+
+
+        moveHistory.Clear();
+
+
+        winnerMessage = string.Empty;
+
+
+        errorMessage = string.Empty;
+
+
+        StateHasChanged();
+    }
+
+}
